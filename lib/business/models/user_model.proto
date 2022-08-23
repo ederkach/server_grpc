@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+enum Status {
+  active = 0;
+  inactive = 1;
+  breakLunch = 2;
+  notAviable = 3;
+  alert = 4;
+}
+
+message UserModel {
+  string uid = 1;
+  string lastName = 2;
+  string firstName = 3;
+  string phoneNumber = 4;
+  string email = 5;
+  string password = 6;
+  string photoURL = 7;
+  string rank = 8;
+  string title = 9;
+  string descriptions = 10;
+  Status status = 11;
+}
+
+message ListUsers { repeated UserModel listUsers = 1; }
+
+message Dynamic {
+  UserCreateRequest UserCreate = 1;
+  UserUpdateRequest UserUpdate = 2;
+  UserDeleteRequest UserDelete = 3;
+}
+
+service UserService {
+  rpc createUser(UserCreateRequest) returns (UserCreateResponse);
+  rpc readUser(UserReadRequest) returns (UserReadResponse);
+  rpc updateUser(UserUpdateRequest) returns (UserUpdateResponse);
+  rpc deleteUser(UserDeleteRequest) returns (UserDeleteResponse);
+  rpc streamUser(stream Dynamic) returns (stream ListUsers);
+}
+
+// create
+message UserCreateRequest { UserModel userModel = 1; }
+message UserCreateResponse { bool result = 1; }
+
+// read
+message UserReadRequest { string uid = 1; }
+
+message UserReadResponse { repeated UserModel userModels = 1; }
+
+// update
+message UserUpdateRequest { UserModel userModel = 1; }
+message UserUpdateResponse { bool result = 1; }
+
+// delete
+message UserDeleteRequest { string uid = 1; }
+message UserDeleteResponse { bool result = 1; }

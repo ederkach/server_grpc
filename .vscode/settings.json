@@ -1,0 +1,9 @@
+{
+    "protoc": {
+        "path": "/Users/yevhenii//Project/protobuf/bin/protoc",
+        "compile_on_save": false,
+        "options": [
+            "--dart_out=grpc:lib/business/generated",
+        ]
+    }
+}
